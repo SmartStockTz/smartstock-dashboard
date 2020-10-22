@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "dashboard": {
+      "projectType": "library",
+      "root": "projects/dashboard",
+      "sourceRoot": "projects/dashboard/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/dashboard/tsconfig.lib.json",
+            "project": "projects/dashboard/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dashboard/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dashboard/src/test.ts",
+            "tsConfig": "projects/dashboard/tsconfig.spec.json",
+            "karmaConfig": "projects/dashboard/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dashboard/tsconfig.lib.json",
+              "projects/dashboard/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "dashboard-mock": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dashboard-mock",
+      "sourceRoot": "projects/dashboard-mock/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dashboard-mock",
+            "index": "projects/dashboard-mock/src/index.html",
+            "main": "projects/dashboard-mock/src/main.ts",
+            "polyfills": "projects/dashboard-mock/src/polyfills.ts",
+            "tsConfig": "projects/dashboard-mock/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/dashboard-mock/src/favicon.ico",
+              "projects/dashboard-mock/src/assets"
+            ],
+            "styles": [
+              "projects/dashboard-mock/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dashboard-mock/src/environments/environment.ts",
+                  "with": "projects/dashboard-mock/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dashboard-mock:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dashboard-mock:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dashboard-mock:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dashboard-mock/src/test.ts",
+            "polyfills": "projects/dashboard-mock/src/polyfills.ts",
+            "tsConfig": "projects/dashboard-mock/tsconfig.spec.json",
+            "karmaConfig": "projects/dashboard-mock/karma.conf.js",
+            "assets": [
+              "projects/dashboard-mock/src/favicon.ico",
+              "projects/dashboard-mock/src/assets"
+            ],
+            "styles": [
+              "projects/dashboard-mock/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dashboard-mock/tsconfig.app.json",
+              "projects/dashboard-mock/tsconfig.spec.json",
+              "projects/dashboard-mock/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/dashboard-mock/e2e/protractor.conf.js",
+            "devServerTarget": "dashboard-mock:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dashboard-mock:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": false
+  },
+  "defaultProject": "dashboard"
+}
