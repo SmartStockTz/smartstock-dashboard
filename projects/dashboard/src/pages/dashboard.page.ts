@@ -18,7 +18,7 @@ import {DashboardState} from '../states/dashboard.state';
           <smartstock-drawer></smartstock-drawer>
         </mat-sidenav>
 
-        <mat-sidenav-content (swiperight)="openDrawer(sidenav)">
+        <mat-sidenav-content>
 
           <smartstock-toolbar [heading]="'Dashboard'" [sidenav]="sidenav"
                               [showProgress]="false"></smartstock-toolbar>
@@ -33,7 +33,7 @@ import {DashboardState} from '../states/dashboard.state';
               <div class="row">
                 <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                   <smartstock-dash-card [title]="'Total Sales'"
-                                        reportLink="/report/sales"
+                                        reportLink="/report"
                                         [content]="totalSaleComponent"
                                         description="Total sale over specified period">
                     <ng-template #totalSaleComponent>
@@ -45,7 +45,7 @@ import {DashboardState} from '../states/dashboard.state';
                 <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                   <smartstock-dash-card [title]="'Gross Profit'"
                                         [content]="totalGrossProfit"
-                                        reportLink="/report/sales"
+                                        reportLink="/report"
                                         description="Total gross profit over specified period">
                     <ng-template #totalGrossProfit>
                       <smartstock-total-gross-sale [initialDataRange]="initialRange"
@@ -63,7 +63,7 @@ import {DashboardState} from '../states/dashboard.state';
                 <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                   <smartstock-dash-card [title]="'Stocks Health'"
                                         [content]="stockHealth"
-                                        [reportLink]="'/report/stocks'"
+                                        [reportLink]="'/report'"
                                         description="Comparison of your total stocks and out of stock product">
                     <ng-template #stockHealth>
                       <smartstock-stock-status></smartstock-stock-status>
@@ -72,7 +72,7 @@ import {DashboardState} from '../states/dashboard.state';
                 </div>
                 <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                   <smartstock-dash-card [title]="'Category Wise'"
-                                        [reportLink]="'/report/stocks'"
+                                        [reportLink]="'/report'"
                                         [content]="stockByCategory"
                                         description="Category distribution of your stocks">
                     <ng-template #stockByCategory>
