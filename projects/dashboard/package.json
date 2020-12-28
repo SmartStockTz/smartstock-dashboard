@@ -1,6 +1,6 @@
 {
   "name": "@smartstocktz/dashboard",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/smartstocktz"
   },
@@ -12,8 +12,8 @@
     "@angular/core": "^10.1.6",
     "@angular/material": "^10.2.5",
     "@angular/cdk": "^10.2.5",
-    "bfastjs": "^4.0.0-beta.25",
-    "@smartstocktz/core-libs": "^0.0.2",
+    "bfastjs": "^4.0.5",
+    "@smartstocktz/core-libs": "^0.0.24",
     "moment": "^2.29.1",
     "highcharts": "^8.2.0"
   },
