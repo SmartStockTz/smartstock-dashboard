@@ -47,7 +47,7 @@ import {ShopModel} from '../models/shop.model';
   styleUrls: ['../styles/date-range.style.scss']
 })
 export class DateRangeComponent extends DeviceInfoUtil implements OnInit {
-  shop: ShopModel;
+  shop: any;
   today = new Date();
   @Output() dateSelected = new EventEmitter<{ begin: Date, end: Date }>();
   rangeFormGroup: FormGroup = new FormGroup({

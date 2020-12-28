@@ -32,7 +32,7 @@ export class TotalSalesComponent implements OnInit {
     });
   }
 
-  private getTotalSale(dateRange: { begin: Date, end: Date }) {
+  private getTotalSale(dateRange: { begin: Date, end: Date }): void {
     this.totalSaleProgress = true;
     this.dashboardApi.getTotalSale(dateRange.begin, dateRange.end).then(value => {
       this.totalSaleProgress = false;

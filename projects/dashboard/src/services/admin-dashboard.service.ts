@@ -118,7 +118,7 @@ export class AdminDashboardService {
     });
   }
 
-  getSalesByCategory(channel: string, from: string, to: string) {
+  getSalesByCategory(channel: string, from: string, to: string): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
       try {
         const activeShop = await this.storage.getActiveShop();
@@ -189,7 +189,7 @@ export class AdminDashboardService {
     });
   }
 
-  async getTotalGrossSale(beginDate: Date, endDate: Date) {
+  async getTotalGrossSale(beginDate: Date, endDate: Date): Promise<any> {
     const activeShop = await this.storage.getActiveShop();
     const total = await BFast.database(activeShop.projectId).collection('sales')
       .query()
