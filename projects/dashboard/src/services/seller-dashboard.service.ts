@@ -6,19 +6,19 @@ import {StorageService} from '@smartstocktz/core-libs';
 @Injectable()
 export class SellerDashboardService {
 
-  constructor(private readonly _httpClient: HttpClient,
-              private readonly _storage: StorageService,
-              private readonly _settings: SettingsService) {
+  constructor(private readonly httpClient: HttpClient,
+              private readonly storageService: StorageService,
+              private readonly settingsService: SettingsService) {
   }
 
   getTotalSaleOfUserByDate(date: string): Promise<{ total: number }[]> {
     return new Promise<{ total: number }[]>(async (resolve, reject) => {
       try {
-        const user = await this._storage.getActiveUser();
-        const activeShop = await this._storage.getActiveShop();
-        this._httpClient.get<{ total: number }[]>(
-          this._settings.ssmFunctionsURL + `/dashboard/seller/sales/${user.id}/${activeShop.projectId}/${date}`, {
-            headers: this._settings.ssmFunctionsHeader
+        const user = await this.storageService.getActiveUser();
+        const activeShop = await this.storageService.getActiveShop();
+        this.httpClient.get<{ total: number }[]>(
+          this.settingsService.ssmFunctionsURL + `/dashboard/seller/sales/${user.id}/${activeShop.projectId}/${date}`, {
+            headers: this.settingsService.ssmFunctionsHeader
           }).subscribe(value => {
           resolve(value);
         }, error => {
@@ -33,11 +33,11 @@ export class SellerDashboardService {
   getTotalCostOfGoodSoldOfUserByDate(date: string): Promise<{ total: number }[]> {
     return new Promise<{ total: number }[]>(async (resolve, reject) => {
       try {
-        const user = await this._storage.getActiveUser();
-        const activeShop = await this._storage.getActiveShop();
-        this._httpClient.get<{ total: number }[]>(
-          this._settings.ssmFunctionsURL + `/dashboard/seller/stock/${user.id}/${activeShop.projectId}/${date}`, {
-            headers: this._settings.ssmFunctionsHeader
+        const user = await this.storageService.getActiveUser();
+        const activeShop = await this.storageService.getActiveShop();
+        this.httpClient.get<{ total: number }[]>(
+          this.settingsService.ssmFunctionsURL + `/dashboard/seller/stock/${user.id}/${activeShop.projectId}/${date}`, {
+            headers: this.settingsService.ssmFunctionsHeader
           }).subscribe(value => {
           resolve(value);
         }, error => {
@@ -52,11 +52,11 @@ export class SellerDashboardService {
   getSalesTrendByUserAndDates(fromDate: string, toDate: string): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
       try {
-        const user = await this._storage.getActiveUser();
-        const activeShop = await this._storage.getActiveShop();
-        this._httpClient.get(this._settings.ssmFunctionsURL +
+        const user = await this.storageService.getActiveUser();
+        const activeShop = await this.storageService.getActiveShop();
+        this.httpClient.get(this.settingsService.ssmFunctionsURL +
           `/dashboard/seller/salesGraphData/day/${user.id}/${activeShop.projectId}/${fromDate}/${toDate}`, {
-          headers: this._settings.ssmFunctionsHeader
+          headers: this.settingsService.ssmFunctionsHeader
         }).subscribe(value => {
           resolve(value);
         }, error => {
@@ -71,11 +71,11 @@ export class SellerDashboardService {
   getSoldProductsByDate(date: string): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
       try {
-        const user = await this._storage.getActiveUser();
-        const activeShop = await this._storage.getActiveShop();
-        this._httpClient.get(this._settings.ssmFunctionsURL +
+        const user = await this.storageService.getActiveUser();
+        const activeShop = await this.storageService.getActiveShop();
+        this.httpClient.get(this.settingsService.ssmFunctionsURL +
           `/dashboard/seller/dailySales/${user.id}/${activeShop.projectId}/${date}`, {
-          headers: this._settings.ssmFunctionsHeader
+          headers: this.settingsService.ssmFunctionsHeader
         }).subscribe(value => {
           resolve(value);
         }, error => {
