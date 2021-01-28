@@ -37,7 +37,7 @@ export class TotalSalesComponent implements OnInit {
     this.totalSaleProgress = true;
     this.dashboardApi.getTotalSale(toSqlDate(dateRange.begin), toSqlDate(dateRange.end)).then(value => {
       this.totalSaleProgress = false;
-      this.totalSale = value[0].amount;
+      this.totalSale = value[0].sales;
     }).catch(_ => {
       this.totalSaleProgress = false;
     });

@@ -13,17 +13,17 @@ export class AdminDashboardService {
               private readonly storage: StorageService) {
   }
 
-  async getTotalSale(beginDate: string, endDate: string): Promise<{ amount: number }> {
+  async getTotalSale(beginDate: string, endDate: string): Promise<{ sales: number }[]> {
     const activeShop = await this.storage.getActiveShop();
     return bfast.functions(activeShop.projectId).request(
       FaasUtil.functionsUrl(`/reports/dashboard/sales/${beginDate}/${endDate}`, activeShop.projectId)
     ).get();
   }
 
-  async getTotalGrossSale(beginDate: string, endDate: string): Promise<{ amount: number }> {
+  async getTotalGrossSale(beginDate: string, endDate: string): Promise<{ gross: number }[]> {
     const activeShop = await this.storage.getActiveShop();
     return bfast.functions(activeShop.projectId).request(
-      FaasUtil.functionsUrl(`/reports/dashboard/cogs/${beginDate}/${endDate}`, activeShop.projectId)
+      FaasUtil.functionsUrl(`/reports/dashboard/gross/${beginDate}/${endDate}`, activeShop.projectId)
     ).get();
   }
 

@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DeviceInfoUtil, StorageService} from '@smartstocktz/core-libs';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ShopModel} from '../models/shop.model';
 
 @Component({
   selector: 'smartstock-current-shop',
   template: `
     <mat-card>
-      <mat-card-content class="d-flex flex-lg-row flex-lg-row flex-md-row flex-sm-column flex-column align-items-center">
+      <mat-card-content
+        class="d-flex flex-lg-row flex-lg-row flex-md-row flex-sm-column flex-column align-items-center">
 
         <div class="d-flex justify-content-center align-items-center flex-column" style="padding-bottom: 8px">
           <div style="padding: 8px; justify-content: center; align-items: center">
@@ -36,7 +36,8 @@ import {ShopModel} from '../models/shop.model';
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
 
-            <mat-error *ngIf="rangeFormGroup.controls.begin.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+            <mat-error *ngIf="rangeFormGroup.controls.begin.hasError('matStartDateInvalid')">Invalid start date
+            </mat-error>
             <mat-error *ngIf="rangeFormGroup.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
           </mat-form-field>
         </div>
