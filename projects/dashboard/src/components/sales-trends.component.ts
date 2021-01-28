@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import * as Highcharts from 'highcharts';
 import {AdminDashboardService} from '../services/admin-dashboard.service';
-import { toSqlDate } from '@smartstocktz/core-libs';
+import {toSqlDate} from '@smartstocktz/core-libs';
 
 @Component({
   selector: 'smartstock-dashboard-sale-trends',
@@ -41,7 +41,8 @@ import { toSqlDate } from '@smartstocktz/core-libs';
             <!--<mat-card>-->
             <mat-card-content>
               <div id="salesTrendByDay"></div>
-              <smartstock-data-not-ready [isLoading]="isLoading" *ngIf="noDataRetrieved || isLoading"></smartstock-data-not-ready>
+              <smartstock-data-not-ready [isLoading]="isLoading"
+                                         *ngIf="noDataRetrieved || isLoading"></smartstock-data-not-ready>
               <!--<smartstock-data-not-ready></smartstock-data-not-ready>-->
             </mat-card-content>
             <!--</mat-card>-->
@@ -63,10 +64,11 @@ export class SalesTrendsComponent implements OnInit {
 
   isLoading = false;
   noDataRetrieved = true;
-  constructor(private readonly _report: AdminDashboardService) {
+
+  constructor(private readonly report: AdminDashboardService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const date = new Date();
     const fromDate = new Date(new Date().setDate(date.getDate() - 7));
     this.salesTrendDayFromDateFormControl.setValue(fromDate);
@@ -75,7 +77,7 @@ export class SalesTrendsComponent implements OnInit {
     this._listenForDateChange();
   }
 
-  private _listenForDateChange() {
+  private _listenForDateChange(): any {
     this.salesTrendDayFromDateFormControl.valueChanges.subscribe(value => {
       this.refreshTrendReport();
     });
@@ -84,23 +86,23 @@ export class SalesTrendsComponent implements OnInit {
     });
   }
 
-  private _getSalesTrend(from: string, to: string) {
-    this.isLoading = true;
-    this.salesByDayTrendProgress = true;
-    this._report.getSalesTrend(from, to).then(value => {
-      this.isLoading = false;
-      this.noDataRetrieved = false;
-      this.initiateGraph(value);
-      this.salesByDayTrendProgress = false;
-    }).catch(reason => {
-      this.isLoading = false;
-      this.noDataRetrieved = true;
-      // console.log(reason);
-      this.salesByDayTrendProgress = false;
-    });
+  private _getSalesTrend(from: string, to: string): any {
+    // this.isLoading = true;
+    // this.salesByDayTrendProgress = true;
+    // this._report.getSalesTrend(from, to).then(value => {
+    //   this.isLoading = false;
+    //   this.noDataRetrieved = false;
+    //   this.initiateGraph(value);
+    //   this.salesByDayTrendProgress = false;
+    // }).catch(reason => {
+    //   this.isLoading = false;
+    //   this.noDataRetrieved = true;
+    //   // console.log(reason);
+    //   this.salesByDayTrendProgress = false;
+    // });
   }
 
-  private initiateGraph(data: any) {
+  private initiateGraph(data: any): any {
     const saleDays = [];
     const totalSales = [];
     Object.keys(data).forEach(key => {
@@ -123,7 +125,7 @@ export class SalesTrendsComponent implements OnInit {
           text: 'Day'
         },
         labels: {
-          formatter: function () {
+          formatter(): any {
             return this.value;
           }
         }
@@ -135,7 +137,7 @@ export class SalesTrendsComponent implements OnInit {
         },
         // lineColor: '#1b5e20',
         labels: {
-          formatter: function () {
+          formatter(): any {
             return this.value;
           }
         }
@@ -167,7 +169,7 @@ export class SalesTrendsComponent implements OnInit {
     });
   }
 
-  refreshTrendReport() {
+  refreshTrendReport(): any {
     this._getSalesTrend(toSqlDate(new Date(this.salesTrendDayFromDateFormControl.value)),
       toSqlDate(new Date(this.salesTrendDayToDateFormControl.value)));
   }
