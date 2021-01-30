@@ -20,6 +20,14 @@ export class AdminDashboardService {
     ).get();
   }
 
+  async getSalesOverview(from: string, to: string, period: string): Promise<any> {
+    const activeShop = await this.storage.getActiveShop();
+    return bfast.functions(activeShop.projectId)
+      .request(FaasUtil.functionsUrl(`/reports/sales/overview/${from}/${to}/${period}`, activeShop.projectId))
+      .get();
+  }
+
+
   async getTotalGrossSale(beginDate: string, endDate: string): Promise<{ gross: number }[]> {
     const activeShop = await this.storage.getActiveShop();
     return bfast.functions(activeShop.projectId).request(

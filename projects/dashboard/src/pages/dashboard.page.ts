@@ -27,37 +27,41 @@ import {DashboardState} from '../states/dashboard.state';
                [ngClass]="(isMobile || !enoughWidth())?'container-fluid':'container'">
             <div class="col-12 col-lg-10 col-xl-10 offset-xl-1 offset-lg-1 offset-md-0 offset-sm-0">
               <smartstock-current-shop (dateSelected)="dateSelected($event)"></smartstock-current-shop>
-              <p style="padding: 10px 0">
-                How are your sales performing?
-              </p>
-              <div class="row">
-                <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                  <smartstock-dash-card [title]="'Total Sales'"
-                                        reportLink="/report"
-                                        [content]="totalSaleComponent"
-                                        description="Total sale over specified period">
-                    <ng-template #totalSaleComponent>
-                      <smartstock-total-sales [initialDataRange]="initialRange"
-                                              [dateRange]="dateRange"></smartstock-total-sales>
-                    </ng-template>
-                  </smartstock-dash-card>
+<!--              <p style="padding: 10px 0">-->
+<!--                How are your sales performing?-->
+<!--              </p>-->
+              <div class="row py-5">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+<!--                  <smartstock-dash-card-->
+<!--                                        reportLink="/report"-->
+<!--                                        [content]="totalSaleComponent"-->
+<!--                                        description="Total sale over specified period">-->
+<!--                    <ng-template #totalSaleComponent>-->
+<!--                      <smartstock-total-sales [initialDataRange]="initialRange"-->
+<!--                                              [dateRange]="dateRange"></smartstock-total-sales>-->
+<!--                    </ng-template>-->
+<!--                  </smartstock-dash-card>-->
+                  <smartstock-total-sales [initialDataRange]="initialRange"
+                                          [dateRange]="dateRange"></smartstock-total-sales>
                 </div>
-                <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                  <smartstock-dash-card [title]="'Gross Profit'"
-                                        [content]="totalGrossProfit"
-                                        reportLink="/report"
-                                        description="Total gross profit over specified period">
-                    <ng-template #totalGrossProfit>
-                      <smartstock-total-gross-sale [initialDataRange]="initialRange"
-                                                   [dateRange]="dateRange"></smartstock-total-gross-sale>
-                    </ng-template>
-                  </smartstock-dash-card>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+<!--                  <smartstock-dash-card [title]="'Gross Profit'"-->
+<!--                                        [content]="totalGrossProfit"-->
+<!--                                        reportLink="/report"-->
+<!--                                        description="Total gross profit over specified period">-->
+<!--                    <ng-template #totalGrossProfit>-->
+<!--                      <smartstock-total-gross-sale [initialDataRange]="initialRange"-->
+<!--                                                   [dateRange]="dateRange"></smartstock-total-gross-sale>-->
+<!--                    </ng-template>-->
+<!--                  </smartstock-dash-card>-->
+                  <smartstock-total-gross-sale [initialDataRange]="initialRange"
+                                               [dateRange]="dateRange"></smartstock-total-gross-sale>
                 </div>
               </div>
 
-              <p style="padding: 10px 0">
-                How are your stocks performing?
-              </p>
+<!--              <p style="padding: 10px 0">-->
+<!--                How are your stocks performing?-->
+<!--              </p>-->
 
               <div class="row">
                 <div style="margin-bottom: 10px" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
