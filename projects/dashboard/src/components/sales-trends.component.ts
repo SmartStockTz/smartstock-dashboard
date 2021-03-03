@@ -5,7 +5,7 @@ import {AdminDashboardService} from '../services/admin-dashboard.service';
 import {toSqlDate} from '@smartstocktz/core-libs';
 
 @Component({
-  selector: 'smartstock-dashboard-sale-trends',
+  selector: 'app-dashboard-sale-trends',
   template: `
     <div class="col-12" style="margin-top: 1em">
       <mat-card class="mat-elevation-z3">
@@ -41,9 +41,9 @@ import {toSqlDate} from '@smartstocktz/core-libs';
             <!--<mat-card>-->
             <mat-card-content>
               <div id="salesTrendByDay"></div>
-              <smartstock-data-not-ready [isLoading]="isLoading"
-                                         *ngIf="noDataRetrieved || isLoading"></smartstock-data-not-ready>
-              <!--<smartstock-data-not-ready></smartstock-data-not-ready>-->
+              <app-data-not-ready [isLoading]="isLoading"
+                                         *ngIf="noDataRetrieved || isLoading"></app-data-not-ready>
+              <!--<app-data-not-ready></app-data-not-ready>-->
             </mat-card-content>
             <!--</mat-card>-->
           </div>

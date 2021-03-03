@@ -3,7 +3,7 @@ import {DeviceInfoUtil, StorageService} from '@smartstocktz/core-libs';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'smartstock-current-shop',
+  selector: 'app-current-shop',
   template: `
     <mat-card>
       <mat-card-content

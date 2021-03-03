@@ -8,7 +8,7 @@ import {LogService} from '@smartstocktz/core-libs';
 import {SalesModel} from '../models/sale.model';
 
 @Component({
-  selector: 'smartstock-dashboard-sales-product-frequency',
+  selector: 'app-dashboard-sales-product-frequency',
   template: `
     <div class="col-12">
       <div class="d-flex flex-row flex-wrap btn-block align-items-center">
@@ -63,7 +63,7 @@ import {SalesModel} from '../models/sale.model';
           <tr mat-footer-row style="font-size: 20px" *matFooterRowDef="columns"></tr>
         </table>
 
-        <smartstock-data-not-ready *ngIf="!soldProductsDatasource"></smartstock-data-not-ready>
+        <app-data-not-ready *ngIf="!soldProductsDatasource"></app-data-not-ready>
 
         <mat-paginator #soldProductPaginator [pageSizeOptions]="[25, 50, 75, 100]"
                        showFirstLastButtons></mat-paginator>

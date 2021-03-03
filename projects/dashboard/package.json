@@ -1,6 +1,6 @@
 {
   "name": "@smartstocktz/dashboard",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/smartstocktz"
   },
@@ -9,14 +9,6 @@
     "url": "https://github.com/smartstocktz/smartstock-dashboard.git"
   },
   "peerDependencies": {
-    "@angular/common": "^11.0.5",
-    "@angular/core": "^11.0.5",
-    "@angular/material": "^11.0.3",
-    "@angular/cdk": "^11.0.3",
-    "bfastjs": "^4.0.8",
-    "@smartstocktz/core-libs": "^0.0.25",
-    "moment": "^2.29.1",
-    "highcharts": "^8.2.2"
   },
   "dependencies": {
     "tslib": "^2.0.0"

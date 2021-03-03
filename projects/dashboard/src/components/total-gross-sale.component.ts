@@ -4,12 +4,12 @@ import {AdminDashboardService} from '../services/admin-dashboard.service';
 import {toSqlDate} from '@smartstocktz/core-libs';
 
 @Component({
-  selector: 'smartstock-total-gross-sale',
+  selector: 'app-total-gross-sale',
   template: `
     <div style="height: 100%" class="d-flex justify-content-center align-items-center">
       <span *ngIf="!totalGrossSaleProgress" style="font-size: 30px">{{totalGrossSale | currency: 'TZS '}}</span>
-      <smartstock-data-not-ready [width]="100" height="100" [isLoading]="totalGrossSaleProgress"
-                                 *ngIf="totalGrossSaleProgress || (!totalGrossSale && totalGrossSale!==0)"></smartstock-data-not-ready>
+      <app-data-not-ready [width]="100" height="100" [isLoading]="totalGrossSaleProgress"
+                                 *ngIf="totalGrossSaleProgress || (!totalGrossSale && totalGrossSale!==0)"></app-data-not-ready>
     </div>
   `,
   styleUrls: ['../styles/total-gross-sale.style.scss']
