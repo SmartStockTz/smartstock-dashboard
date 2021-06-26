@@ -17,6 +17,7 @@ import {BFast} from 'bfastjs';
 import {HttpClientModule} from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
+import {ConfigsService} from "@smartstocktz/core-libs";
 
 
 const routes: Routes = [
@@ -58,11 +59,17 @@ const routes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
+  constructor(private readonly configsService: ConfigsService) {
     BFast.init({
       applicationId: 'smartstock_lb',
-      projectId: 'smartstock',
-      appPassword: 'ZMUGVn72o3yd8kSbMGhfWpI80N9nA2IHjxWKlAhG'
+      projectId: 'smartstock'
     });
+    this.configsService.addMenu({
+      name: 'dashboard',
+      link: '/dashboard',
+      icon: 'dashboard',
+      pages: []
+    });
+    this.configsService.selectedModuleName = 'dashboard';
   }
 }

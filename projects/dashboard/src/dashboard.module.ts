@@ -26,7 +26,7 @@ import {StockStatusComponent} from './components/stock-status.component';
 import {StockByCategoryComponent} from './components/stock-by-category.component';
 import {StockExpiredComponent} from './components/stock-expired.component';
 import {RouterModule, ROUTES, Routes} from '@angular/router';
-import {LibModule} from '@smartstocktz/core-libs';
+import {ConfigsService, LibModule} from '@smartstocktz/core-libs';
 
 
 const routes: Routes = [
@@ -77,4 +77,12 @@ const routes: Routes = [
   ]
 })
 export class DashboardModule {
+  constructor(private readonly configs: ConfigsService) {
+    this.configs.addMenu({
+      name: 'dashboard',
+      link: '/dashboard',
+      icon: 'dashboard',
+      pages: []
+    });
+  }
 }
