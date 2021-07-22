@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DeviceInfoUtil, StorageService} from '@smartstocktz/core-libs';
 import {FormControl, FormGroup} from '@angular/forms';
+import {DateRangeModel} from '../models/date-range.model';
 
 @Component({
   selector: 'app-current-shop',
@@ -9,16 +10,17 @@ import {FormControl, FormGroup} from '@angular/forms';
       <mat-card-content
         class="d-flex flex-lg-row flex-lg-row flex-md-row flex-sm-column flex-column align-items-center">
 
-        <div class="d-flex justify-content-center align-items-center flex-column" style="padding-bottom: 8px">
-          <div style="padding: 8px; justify-content: center; align-items: center">
-            <mat-icon style="width: 70px; height: 70px; font-size: 70px" color="primary">store</mat-icon>
-          </div>
-        </div>
+        <!--        <div class="d-flex justify-content-center align-items-center flex-column" style="padding-bottom: 8px">-->
+        <!--          <div style="padding: 8px; justify-content: center; align-items: center">-->
+        <!--            <mat-icon style="width: 70px; height: 70px; font-size: 70px" color="primary">store</mat-icon>-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <div class="flex-grow-1 d-flex flex-row">
           <div class="d-flex flex-column justify-content-center">
             <h4 style="overflow: hidden; text-overflow: ellipsis;"
-                *ngIf="shop">{{shop.businessName}}</h4>
+                *ngIf="shop">{{shop.businessName}}
+            </h4>
             <span style="width: 4px; height: 4px"></span>
             <mat-card-subtitle *ngIf="shop">{{shop.category}}</mat-card-subtitle>
           </div>
@@ -49,8 +51,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class DateRangeComponent extends DeviceInfoUtil implements OnInit {
   shop: any;
-  today = new Date();
-  @Output() dateSelected = new EventEmitter<{ begin: Date, end: Date }>();
+  @Output() dateSelected = new EventEmitter<DateRangeModel>();
   rangeFormGroup: FormGroup = new FormGroup({
     begin: new FormControl(new Date()),
     end: new FormControl(new Date())

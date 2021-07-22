@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminDashboardService} from '../services/admin-dashboard.service';
+import {DashboardService} from '../services/dashboard.service';
 import {LogService} from '@smartstocktz/core-libs';
 import * as Highcharts from 'highcharts';
 
@@ -19,7 +19,7 @@ export class StockStatusComponent implements OnInit {
   stockStatus: { x: string, y: number }[];
   stockStatusChart: Highcharts.Chart = undefined;
 
-  constructor(private readonly adminDashboardService: AdminDashboardService,
+  constructor(private readonly adminDashboardService: DashboardService,
               private readonly logger: LogService) {
   }
 

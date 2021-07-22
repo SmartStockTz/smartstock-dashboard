@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
-import {AdminDashboardService} from '../services/admin-dashboard.service';
+import {DashboardService} from '../services/dashboard.service';
 import {LogService} from '@smartstocktz/core-libs';
 import {SalesModel} from '../models/sale.model';
 
@@ -73,7 +73,7 @@ import {SalesModel} from '../models/sale.model';
   `,
   styleUrls: ['../styles/sales-product-frequency.style.scss'],
   providers: [
-    AdminDashboardService
+    DashboardService
   ]
 })
 export class SalesProductFrequencyComponent implements OnInit {
@@ -84,7 +84,7 @@ export class SalesProductFrequencyComponent implements OnInit {
   @ViewChild('soldProductPaginator') soldProductPaginator: MatPaginator;
   productFilterControl = new FormControl('');
 
-  constructor(private readonly _report: AdminDashboardService,
+  constructor(private readonly _report: DashboardService,
               private readonly _logger: LogService,
               private readonly _snack: MatSnackBar) {
   }

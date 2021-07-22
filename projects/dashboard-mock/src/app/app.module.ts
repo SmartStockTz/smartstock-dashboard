@@ -64,12 +64,13 @@ export class AppModule {
       applicationId: 'smartstock_lb',
       projectId: 'smartstock'
     });
-    this.configsService.addMenu({
-      name: 'dashboard',
-      link: '/dashboard',
-      icon: 'dashboard',
-      pages: []
-    });
+    // this.configsService.addMenu({
+    //   name: 'dashboard',
+    //   link: '/dashboard',
+    //   icon: 'dashboard',
+    //   roles: ['admin'],
+    //   pages: []
+    // });
     this.configsService.selectedModuleName = 'dashboard';
   }
 }

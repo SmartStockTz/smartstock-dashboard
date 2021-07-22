@@ -27,6 +27,15 @@ import {StockByCategoryComponent} from './components/stock-by-category.component
 import {StockExpiredComponent} from './components/stock-expired.component';
 import {RouterModule, ROUTES, Routes} from '@angular/router';
 import {ConfigsService, LibModule} from '@smartstocktz/core-libs';
+import {DashboardStockOverviewComponent} from './components/dashboard-stock-overview.component';
+import {DashboardSalesPerformanceComponent} from './components/dashboard-sales-performance.component';
+import {DashboardExpensesComponent} from './components/dashboard-expenses.component';
+import {CostOfGoodComponent} from './components/cost-of-good.component';
+import {ExpensesComponent} from './components/expenses.component';
+import {SoldItemsComponent} from './components/sold-items.component';
+import {DashboardProfitLossComponent} from './components/dashboard-profit-loss.component';
+import {NetSalesProfitComponent} from './components/net-sales-profit.component';
+import {NetSalesProfitMarginComponent} from './components/net-sales-profit-margin.component';
 
 
 const routes: Routes = [
@@ -43,7 +52,16 @@ const routes: Routes = [
     TotalGrossSaleComponent,
     StockStatusComponent,
     StockByCategoryComponent,
-    StockExpiredComponent
+    StockExpiredComponent,
+    DashboardStockOverviewComponent,
+    DashboardSalesPerformanceComponent,
+    DashboardExpensesComponent,
+    CostOfGoodComponent,
+    ExpensesComponent,
+    SoldItemsComponent,
+    DashboardProfitLossComponent,
+    NetSalesProfitComponent,
+    NetSalesProfitMarginComponent
   ],
   imports: [
     CommonModule,
@@ -82,6 +100,7 @@ export class DashboardModule {
       name: 'dashboard',
       link: '/dashboard',
       icon: 'dashboard',
+      roles: ['admin'],
       pages: []
     });
   }
