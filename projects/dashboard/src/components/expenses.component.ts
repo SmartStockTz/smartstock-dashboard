@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DateRangeModel} from '../models/date-range.model';
 import {Observable} from 'rxjs';
 import {DashboardService} from '../services/dashboard.service';
-import * as moment from 'moment';
+import * as  moment from 'moment';
 
 @Component({
   selector: 'app-expenses',
