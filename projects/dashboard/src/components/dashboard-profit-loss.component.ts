@@ -37,7 +37,7 @@ import {Observable} from 'rxjs';
   styleUrls: []
 })
 
-export class DashboardProfitLossComponent{
+export class DashboardProfitLossComponent {
   @Input() initialRange: {begin: any, end: any};
   @Input() dateRange: Observable<{ begin: any, end: any }>;
   constructor() {

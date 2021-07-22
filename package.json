@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -c dev dashboard-mock",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

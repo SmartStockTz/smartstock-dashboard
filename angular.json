@@ -99,6 +99,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "dev": {
+              "optimization": false,
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
           }
         },
@@ -110,6 +118,9 @@
           "configurations": {
             "production": {
               "browserTarget": "dashboard-mock:build:production"
+            },
+            "dev": {
+              "browserTarget": "dashboard-mock:build:dev"
             }
           }
         },
@@ -166,5 +177,5 @@
   "cli": {
     "analytics": false
   },
-  "defaultProject": "dashboard"
+  "defaultProject": "dashboard-mock"
 }

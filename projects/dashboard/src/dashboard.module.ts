@@ -95,13 +95,13 @@ const routes: Routes = [
   ]
 })
 export class DashboardModule {
-  constructor(private readonly configs: ConfigsService) {
-    this.configs.addMenu({
-      name: 'dashboard',
-      link: '/dashboard',
-      icon: 'dashboard',
-      roles: ['admin'],
-      pages: []
-    });
+  constructor() {
+    // this.configs.addMenu({
+    //   name: 'dashboard',
+    //   link: '/dashboard',
+    //   icon: 'dashboard',
+    //   roles: ['admin'],
+    //   pages: []
+    // });
   }
 }

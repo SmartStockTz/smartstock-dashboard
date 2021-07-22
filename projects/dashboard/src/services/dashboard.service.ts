@@ -105,7 +105,8 @@ export class DashboardService {
         }
       })
       .find();
-    return {total: gProfit[0].gross - expenses[0].total};
+    return {total: (gProfit && Array.isArray(gProfit) && gProfit[0].gross ? gProfit[0].gross : 0)
+        - (expenses && Array.isArray(expenses) && expenses[0] ? expenses[0].total : 0)};
   }
 
   async netSalesProfitLossMargin(beginDate: string, endDate: string): Promise<{ total: number }> {
@@ -113,7 +114,7 @@ export class DashboardService {
     endDate = moment(endDate).format('YYYY-MM-DD');
     const netP = await this.netSalesProfitLoss(beginDate, endDate);
     const sales = await this.getTotalSale(beginDate, endDate);
-    return {total: (netP.total / sales[0].sales)};
+    return {total: ((netP && netP.total ? netP.total : 0) / (sales && Array.isArray(sales) && sales[0] ? sales[0].sales : 0))};
   }
 
 
@@ -147,13 +148,40 @@ export class DashboardService {
     beginDate = moment(beginDate).format('YYYY-MM-DD');
     endDate = moment(endDate).format('YYYY-MM-DD');
     const shop = await this.userService.getCurrentShop();
-    return bfast.database(shop.projectId)
-      .collection('expenses')
-      .query()
-      .greaterThanOrEqual('date', beginDate)
-      .lessThanOrEqual('date', endDate)
-      .count(true)
+    const r = await bfast.database(shop.projectId)
+      .collection('sales')
+      .aggregate()
+      .stage({
+        $match: {
+          $and: [
+            {date: {$gte: beginDate}},
+            {date: {$lte: endDate}},
+          ]
+        }
+      })
+      .stage({
+        $group: {
+          _id: '$batch',
+          quantity: {$first: '$quantity'},
+        }
+      })
+      .stage({
+        $group: {
+          _id: null,
+          total: {
+            $sum: '$quantity'
+          }
+        }
+      })
       .find();
+    return r && Array.isArray(r) && r[0].total ? r[0].total : 0;
+    // return bfast.database(shop.projectId)
+    //   .collection('sales')
+    //   .query()
+    //   .greaterThanOrEqual('date', beginDate)
+    //   .lessThanOrEqual('date', endDate)
+    //   .count(true)
+    //   .find();
   }
 
 

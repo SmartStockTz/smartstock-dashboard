@@ -47,6 +47,7 @@ export class NetSalesProfitComponent implements OnInit {
         this.netSaleProfit = value.total;
       })
       .catch(_ => {
+        console.log(_);
         this.netSaleProfitProgress = false;
       });
   }
