@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DateRangeModel} from '../models/date-range.model';
 import {DashboardService} from '../services/dashboard.service';
 import {Observable} from 'rxjs';
 import * as moment from 'moment';
@@ -20,8 +19,8 @@ import * as moment from 'moment';
 export class NetSalesProfitMarginComponent implements OnInit {
   netSaleProfitMargin = 0;
   netSaleProfitMarginProgress = false;
-  @Input() dateRange: Observable<DateRangeModel>;
-  @Input() initialDataRange: DateRangeModel;
+  @Input() dateRange: Observable<Date>;
+  @Input() initialDataRange: Date;
 
   constructor(private readonly dashboardApi: DashboardService) {
   }
@@ -36,15 +35,14 @@ export class NetSalesProfitMarginComponent implements OnInit {
     });
   }
 
-  _netSalesProfitMargin(dateRange: DateRangeModel): any {
-    dateRange.begin = moment(dateRange.begin).format('YYYY-MM-DD');
-    dateRange.end = moment(dateRange.end).format('YYYY-MM-DD');
+  _netSalesProfitMargin(dateRange: any): any {
+    dateRange = moment(dateRange).format('YYYY-MM-DD');
     this.netSaleProfitMarginProgress = true;
     this.dashboardApi
-      .netSalesProfitLossMargin(dateRange.begin, dateRange.end)
+      .netSalesProfitLossMargin(dateRange)
       .then(value => {
         this.netSaleProfitMarginProgress = false;
-        this.netSaleProfitMargin = value.total;
+        this.netSaleProfitMargin = value;
       })
       .catch(_ => {
         this.netSaleProfitMarginProgress = false;

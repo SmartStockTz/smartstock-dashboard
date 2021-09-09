@@ -7,11 +7,11 @@ import {BehaviorSubject} from 'rxjs';
 export class DashboardState {
   test: BehaviorSubject<number> = new BehaviorSubject<any>(0);
 
-  addTest(test: number) {
+  addTest(test: number): void {
     this.test.next(test);
   }
 
-  reduceTest(qt: number) {
+  reduceTest(qt: number): void {
     this.test.next(qt);
   }
 }

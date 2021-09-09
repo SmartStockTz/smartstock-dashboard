@@ -1,10 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import {DashboardService} from '../services/dashboard.service';
-import {LogService} from '@smartstocktz/core-libs';
 import {SalesModel} from '../models/sale.model';
 
 @Component({
@@ -84,23 +82,18 @@ export class SalesProductFrequencyComponent implements OnInit {
   @ViewChild('soldProductPaginator') soldProductPaginator: MatPaginator;
   productFilterControl = new FormControl('');
 
-  constructor(private readonly _report: DashboardService,
-              private readonly _logger: LogService,
-              private readonly _snack: MatSnackBar) {
+  constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.productFilterControl.valueChanges.subscribe(value => {
       if (value) {
         this.soldProductsDatasource.filter = value.toString().toLocaleLowerCase();
       }
     });
-    this._getSoldProduct();
   }
 
-  reloadProducts() {
-  }
+  reloadProducts(): void {
 
-  _getSoldProduct() {
   }
 }

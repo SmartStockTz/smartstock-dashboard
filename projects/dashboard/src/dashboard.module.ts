@@ -26,7 +26,7 @@ import {StockStatusComponent} from './components/stock-status.component';
 import {StockByCategoryComponent} from './components/stock-by-category.component';
 import {StockExpiredComponent} from './components/stock-expired.component';
 import {RouterModule, ROUTES, Routes} from '@angular/router';
-import {ConfigsService, LibModule} from '@smartstocktz/core-libs';
+import {LibModule} from '@smartstocktz/core-libs';
 import {DashboardStockOverviewComponent} from './components/dashboard-stock-overview.component';
 import {DashboardSalesPerformanceComponent} from './components/dashboard-sales-performance.component';
 import {DashboardExpensesComponent} from './components/dashboard-expenses.component';

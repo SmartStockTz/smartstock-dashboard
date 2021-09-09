@@ -38,8 +38,8 @@ import {Observable} from 'rxjs';
 })
 
 export class DashboardProfitLossComponent {
-  @Input() initialRange: {begin: any, end: any};
-  @Input() dateRange: Observable<{ begin: any, end: any }>;
+  @Input() initialRange: Date;
+  @Input() dateRange: Observable<Date>;
   constructor() {
   }
 }

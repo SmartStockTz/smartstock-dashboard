@@ -39,8 +39,8 @@ import {DashboardState} from '../states/dashboard.state';
 })
 export class DashboardPageComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  dateRange = new Subject<{ begin: Date; end: Date }>();
-  initialRange: { begin: Date; end: Date };
+  dateRange = new Subject<Date>();
+  initialRange: Date;
 
   constructor(public readonly dashboardState: DashboardState,
               public readonly deviceState: DeviceState) {
@@ -50,7 +50,7 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  dateSelected(dateRange: { begin: Date; end: Date }): void {
+  dateSelected(dateRange: Date): void {
     this.initialRange = dateRange;
     this.dateRange.next(dateRange);
   }

@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {DashboardService} from '../services/dashboard.service';
-import {DateRangeModel} from '../models/date-range.model';
 import * as moment from 'moment';
 
 @Component({
@@ -20,8 +19,8 @@ import * as moment from 'moment';
 export class CostOfGoodComponent implements OnInit {
   costOfGoodSold = 0;
   costOfGoodSoldProgress = false;
-  @Input() dateRange: Observable<DateRangeModel>;
-  @Input() initialDataRange: DateRangeModel;
+  @Input() dateRange: Observable<Date>;
+  @Input() initialDataRange: Date;
 
   constructor(private readonly dashboardApi: DashboardService) {
   }
@@ -36,15 +35,14 @@ export class CostOfGoodComponent implements OnInit {
     });
   }
 
-  _costOfGoodSold(dateRange: DateRangeModel): any {
-    dateRange.begin = moment(dateRange.begin).format('YYYY-MM-DD');
-    dateRange.end = moment(dateRange.end).format('YYYY-MM-DD');
+  _costOfGoodSold(dateRange: any): any {
+    dateRange = moment(dateRange).format('YYYY-MM-DD');
     this.costOfGoodSoldProgress = true;
     this.dashboardApi
-      .costOfGoodSold(dateRange.begin, dateRange.end)
+      .costOfGoodSold(dateRange)
       .then(value => {
         this.costOfGoodSoldProgress = false;
-        this.costOfGoodSold = value[0].cogs;
+        this.costOfGoodSold = value.cogs;
       })
       .catch(_ => {
         this.costOfGoodSoldProgress = false;

@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from '../services/dashboard.service';
 import {Observable} from 'rxjs';
-import {DateRangeModel} from '../models/date-range.model';
 
 @Component({
   selector: 'app-total-sales',
@@ -17,8 +16,8 @@ import {DateRangeModel} from '../models/date-range.model';
 export class TotalSalesComponent implements OnInit {
   totalSale = 0;
   totalSaleProgress = false;
-  @Input() dateRange: Observable<{ begin: Date, end: Date }>;
-  @Input() initialDataRange: { begin: Date, end: Date };
+  @Input() dateRange: Observable<Date>;
+  @Input() initialDataRange: Date;
 
   constructor(private readonly dashboardApi: DashboardService) {
   }
@@ -33,12 +32,12 @@ export class TotalSalesComponent implements OnInit {
     });
   }
 
-  private getTotalSale(dateRange: DateRangeModel): void {
+  private getTotalSale(date: Date): void {
     this.totalSaleProgress = true;
-    this.dashboardApi.getTotalSale(dateRange.begin, dateRange.end)
+    this.dashboardApi.getTotalSale(date)
       .then(value => {
         this.totalSaleProgress = false;
-        this.totalSale = value[0].sales;
+        this.totalSale = value.sales;
       })
       .catch(_ => {
         this.totalSaleProgress = false;

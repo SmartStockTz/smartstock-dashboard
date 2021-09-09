@@ -36,8 +36,8 @@ import {Observable} from 'rxjs';
 })
 
 export class DashboardSalesPerformanceComponent{
-  @Input() initialRange: { begin: Date; end: Date };
-  @Input() dateRange: Observable<any>;
+  @Input() initialRange: Date;
+  @Input() dateRange: Observable<Date>;
   constructor() {
   }
 }

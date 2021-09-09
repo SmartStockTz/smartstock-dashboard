@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StorageService, UserService} from '@smartstocktz/core-libs';
-import {BFast, bfast} from 'bfastjs';
+import {database, functions} from 'bfast';
 import {FaasUtil} from '../utils/faas.util';
 import * as moment from 'moment';
 
@@ -15,175 +15,62 @@ export class DashboardService {
               private readonly storage: StorageService) {
   }
 
-  async getTotalSale(beginDate: string, endDate: string): Promise<{ sales: number }[]> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
+  async getTotalSale(date): Promise<{ sales: number }> {
+    date = moment(date).format('YYYY-MM-DD');
     const activeShop = await this.userService.getCurrentShop();
-    return bfast.functions(activeShop.projectId).request(
-      FaasUtil.functionsUrl(`/reports/dashboard/sales/${beginDate}/${endDate}`, activeShop.projectId)
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/sales/${date}/${date}`, activeShop.projectId)
     ).get();
   }
 
-  async getTotalGrossSale(beginDate: string, endDate: string): Promise<{ gross: number }[]> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
+  async getTotalGrossSale(date: any): Promise<{ gross: number }> {
+    date = moment(date).format('YYYY-MM-DD');
     const activeShop = await this.storage.getActiveShop();
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
-    return bfast.functions(activeShop.projectId).request(
-      FaasUtil.functionsUrl(`/reports/dashboard/gross/${beginDate}/${endDate}`, activeShop.projectId)
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/gross/${date}/${date}`, activeShop.projectId)
     ).get();
   }
 
-  async costOfGoodSold(beginDate: string, endDate: string): Promise<{ cogs: number }[]> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
-    const shop = await this.userService.getCurrentShop();
-    return bfast.database(shop.projectId).collection('sales')
-      .aggregate()
-      .hashes([])
-      .stage({
-        $match: {
-          $and: [
-            {date: {$gte: beginDate}},
-            {date: {$lte: endDate}},
-          ]
-        }
-      })
-      .stage({
-        $group: {
-          _id: '$batch',
-          purchase: {$first: '$stock.purchase'},
-          quantity: {$first: '$quantity'},
-        },
-      })
-      .stage({
-        $group: {
-          _id: null,
-          cogs: {
-            $sum: {
-              $multiply: ['$quantity', '$purchase']
-            }
-          }
-        }
-      })
-      .find();
+  async costOfGoodSold(date: any): Promise<{ cogs: number }> {
+    date = moment(date).format('YYYY-MM-DD');
+    const activeShop = await this.userService.getCurrentShop();
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/cogs/${date}/${date}`, activeShop.projectId)
+    ).get();
   }
 
-  async netSalesProfitLoss(beginDate: string, endDate: string): Promise<{ total: number }> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
-    const shop = await this.userService.getCurrentShop();
-    const expenses = await this.expenses(beginDate, endDate);
-    const gProfit = await bfast.database(shop.projectId)
-      .collection('sales')
-      .aggregate()
-      .stage({
-        $match: {
-          $and: [
-            {date: {$gte: beginDate}},
-            {date: {$lte: endDate}},
-          ]
-        }
-      })
-      .stage({
-        $group: {
-          _id: '$batch',
-          purchase: {$first: '$stock.purchase'},
-          quantity: {$first: '$quantity'},
-          amount: {$first: '$amount'},
-        }
-      })
-      .stage({
-        $group: {
-          _id: null,
-          gross: {
-            $sum: {
-              $subtract: ['$amount', {$multiply: ['$quantity', '$purchase']}]
-            }
-          }
-        }
-      })
-      .find();
-    return {total: (gProfit && Array.isArray(gProfit) && gProfit[0].gross ? gProfit[0].gross : 0)
-        - (expenses && Array.isArray(expenses) && expenses[0] ? expenses[0].total : 0)};
+  async netSalesProfitLoss(date: any): Promise<number> {
+    date = moment(date).format('YYYY-MM-DD');
+    const activeShop = await this.userService.getCurrentShop();
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/net/${date}/${date}`, activeShop.projectId)
+    ).get();
   }
 
-  async netSalesProfitLossMargin(beginDate: string, endDate: string): Promise<{ total: number }> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
-    const netP = await this.netSalesProfitLoss(beginDate, endDate);
-    const sales = await this.getTotalSale(beginDate, endDate);
-    return {total: ((netP && netP.total ? netP.total : 0) / (sales && Array.isArray(sales) && sales[0] ? sales[0].sales : 0))};
+  async netSalesProfitLossMargin(date: any): Promise<number> {
+    date = moment(date).format('YYYY-MM-DD');
+    const activeShop = await this.userService.getCurrentShop();
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/margin/${date}/${date}`, activeShop.projectId)
+    ).get();
   }
 
 
-  async expenses(beginDate: string, endDate: string): Promise<{ total: number }[]> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
-    const shop = await this.userService.getCurrentShop();
-    return bfast.database(shop.projectId)
-      .collection('expenses')
-      .aggregate()
-      .stage({
-        $match: {
-          $and: [
-            {date: {$gte: beginDate}},
-            {date: {$lte: endDate}},
-          ]
-        }
-      })
-      .stage({
-        $group: {
-          _id: null,
-          total: {
-            $sum: '$amount'
-          }
-        }
-      })
-      .find();
+  async expenses(date: any): Promise<{ total: number }[]> {
+    date = moment(date).format('YYYY-MM-DD');
+    const activeShop = await this.userService.getCurrentShop();
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/expenses/${date}/${date}`, activeShop.projectId)
+    ).get();
   }
 
-  async soldItems(beginDate: string, endDate: string): Promise<number> {
-    beginDate = moment(beginDate).format('YYYY-MM-DD');
-    endDate = moment(endDate).format('YYYY-MM-DD');
-    const shop = await this.userService.getCurrentShop();
-    const r = await bfast.database(shop.projectId)
-      .collection('sales')
-      .aggregate()
-      .stage({
-        $match: {
-          $and: [
-            {date: {$gte: beginDate}},
-            {date: {$lte: endDate}},
-          ]
-        }
-      })
-      .stage({
-        $group: {
-          _id: '$batch',
-          quantity: {$first: '$quantity'},
-        }
-      })
-      .stage({
-        $group: {
-          _id: null,
-          total: {
-            $sum: '$quantity'
-          }
-        }
-      })
-      .find();
-    return r && Array.isArray(r) && r[0].total ? r[0].total : 0;
-    // return bfast.database(shop.projectId)
-    //   .collection('sales')
-    //   .query()
-    //   .greaterThanOrEqual('date', beginDate)
-    //   .lessThanOrEqual('date', endDate)
-    //   .count(true)
-    //   .find();
+  async soldItems(date: any): Promise<{ total: number }> {
+    date = moment(date).format('YYYY-MM-DD');
+    const activeShop = await this.userService.getCurrentShop();
+    return functions(activeShop.projectId).request(
+      FaasUtil.functionsUrl(`/reports/dashboard/sold/${date}/${date}`, activeShop.projectId)
+    ).get();
   }
-
 
   async getStockStatus(): Promise<{ x: string; y: number }[]> {
     const activeShop = await this.storage.getActiveShop();
@@ -194,7 +81,7 @@ export class DashboardService {
       status.push({x: 'out', y: stocks.filter(stock => stock.quantity <= 0).length});
       status.push({x: 'order', y: stocks.filter(stock => stock.quantity <= stock.reorder).length});
     } else {
-      stocks = await BFast.database(activeShop.projectId).collection('stocks').getAll(null, {});
+      stocks = await database(activeShop.projectId).collection('stocks').getAll(null, {});
       status.push({x: 'total', y: stocks.length});
       status.push({x: 'out', y: stocks.filter(stock => stock.quantity > 0).length});
       status.push({x: 'order', y: stocks.filter(stock => stock.quantity <= stock.reorder).length});
@@ -213,7 +100,7 @@ export class DashboardService {
         status.push({x: category, y: stocks.filter(stock => stock.category === category).length});
       });
     } else {
-      stocks = await BFast.database(activeShop.projectId).collection('stocks').getAll(null, {});
+      stocks = await database(activeShop.projectId).collection('stocks').getAll(null, {});
       stocks.forEach(stock => categories[stock.category] = stock.category);
       Object.keys(categories).forEach(category => {
         status.push({x: category, y: stocks.filter(stock => stock.category === category).length});

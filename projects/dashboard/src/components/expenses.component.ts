@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DateRangeModel} from '../models/date-range.model';
 import {Observable} from 'rxjs';
 import {DashboardService} from '../services/dashboard.service';
 import * as  moment from 'moment';
@@ -17,11 +16,11 @@ import * as  moment from 'moment';
   styleUrls: []
 })
 
-export class ExpensesComponent implements OnInit{
+export class ExpensesComponent implements OnInit {
   expenses = 0;
   expensesProgress = false;
-  @Input() dateRange: Observable<DateRangeModel>;
-  @Input() initialDataRange: DateRangeModel;
+  @Input() dateRange: Observable<Date>;
+  @Input() initialDataRange: Date;
 
   constructor(private readonly dashboardApi: DashboardService) {
   }
@@ -36,12 +35,11 @@ export class ExpensesComponent implements OnInit{
     });
   }
 
-  _expenses(dateRange: DateRangeModel): any {
-    dateRange.begin = moment(dateRange.begin).format('YYYY-MM-DD');
-    dateRange.end = moment(dateRange.end).format('YYYY-MM-DD');
+  _expenses(dateRange: any): any {
+    dateRange = moment(dateRange).format('YYYY-MM-DD');
     this.expensesProgress = true;
     this.dashboardApi
-      .expenses(dateRange.begin, dateRange.end)
+      .expenses(dateRange)
       .then(value => {
         this.expensesProgress = false;
         this.expenses = value[0].total;

@@ -27,7 +27,7 @@ export class StockByCategoryComponent implements OnInit {
     this.getStockStatus();
   }
 
-  private getStockStatus() {
+  private getStockStatus(): void {
     this.stockStatusProgress = true;
     this.adminDashboardService.getStockStatusByCategory().then(status => {
       this.stockStatusProgress = false;
@@ -40,7 +40,7 @@ export class StockByCategoryComponent implements OnInit {
     });
   }
 
-  private initiateGraph(data: { x: string, y: number }[]) {
+  private initiateGraph(data: { x: string, y: number }[]): void{
     const x: string[] = data.map(value => value.x);
     const y: any[] = data.map(value => {
       return {
@@ -69,7 +69,7 @@ export class StockByCategoryComponent implements OnInit {
           labels: {
             enabled: false,
             // @ts-ignore
-            formatter: function () {
+            formatter(): any {
               return this.value;
             }
           }
@@ -83,7 +83,7 @@ export class StockByCategoryComponent implements OnInit {
           labels: {
             enabled: false,
             // @ts-ignore
-            formatter: function () {
+            formatter(): any {
               return this.value;
             }
           }
