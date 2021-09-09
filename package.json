@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -c dev dashboard-mock",
-    "build": "ng build -c production dashboard && cd dist/dashboard && npm publish --ignore-script",
+    "publish": "ng build -c production dashboard && cd dist/dashboard && npm publish --ignore-script",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
