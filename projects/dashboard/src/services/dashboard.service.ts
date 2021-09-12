@@ -11,8 +11,7 @@ import * as moment from 'moment';
 export class DashboardService {
 
   constructor(private readonly httpClient: HttpClient,
-              private readonly userService: UserService,
-              private readonly storage: StorageService) {
+              private readonly userService: UserService) {
   }
 
   async getTotalSale(date): Promise<{ sales: number }> {
@@ -25,7 +24,7 @@ export class DashboardService {
 
   async getTotalGrossSale(date: any): Promise<{ gross: number }> {
     date = moment(date).format('YYYY-MM-DD');
-    const activeShop = await this.storage.getActiveShop();
+    const activeShop = await this.userService.getCurrentShop();
     return functions(activeShop.projectId).request(
       FaasUtil.functionsUrl(`/reports/dashboard/gross/${date}/${date}`, activeShop.projectId)
     ).get();
@@ -72,40 +71,40 @@ export class DashboardService {
     ).get();
   }
 
-  async getStockStatus(): Promise<{ x: string; y: number }[]> {
-    const activeShop = await this.storage.getActiveShop();
-    let stocks = await this.storage.getStocks();
-    const status: { x: string; y: number }[] = [];
-    if (stocks && Array.isArray(stocks) && stocks.length > 0) {
-      status.push({x: 'total', y: stocks.length});
-      status.push({x: 'out', y: stocks.filter(stock => stock.quantity <= 0).length});
-      status.push({x: 'order', y: stocks.filter(stock => stock.quantity <= stock.reorder).length});
-    } else {
-      stocks = await database(activeShop.projectId).collection('stocks').getAll(null, {});
-      status.push({x: 'total', y: stocks.length});
-      status.push({x: 'out', y: stocks.filter(stock => stock.quantity > 0).length});
-      status.push({x: 'order', y: stocks.filter(stock => stock.quantity <= stock.reorder).length});
-    }
-    return status;
-  }
+  // async getStockStatus(): Promise<{ x: string; y: number }[]> {
+  //   const activeShop = await this.userService.getCurrentShop();
+  //   let stocks = await this.storage.getStocks();
+  //   const status: { x: string; y: number }[] = [];
+  //   if (stocks && Array.isArray(stocks) && stocks.length > 0) {
+  //     status.push({x: 'total', y: stocks.length});
+  //     status.push({x: 'out', y: stocks.filter(stock => stock.quantity <= 0).length});
+  //     status.push({x: 'order', y: stocks.filter(stock => stock.quantity <= stock.reorder).length});
+  //   } else {
+  //     stocks = await database(activeShop.projectId).collection('stocks').getAll(null, {});
+  //     status.push({x: 'total', y: stocks.length});
+  //     status.push({x: 'out', y: stocks.filter(stock => stock.quantity > 0).length});
+  //     status.push({x: 'order', y: stocks.filter(stock => stock.quantity <= stock.reorder).length});
+  //   }
+  //   return status;
+  // }
 
-  async getStockStatusByCategory(): Promise<{ x: string; y: number }[]> {
-    const activeShop = await this.storage.getActiveShop();
-    const categories = {};
-    let stocks = await this.storage.getStocks();
-    const status: { x: string; y: number }[] = [];
-    if (stocks && Array.isArray(stocks) && stocks.length > 0) {
-      stocks.forEach(stock => categories[stock.category] = stock.category);
-      Object.keys(categories).forEach(category => {
-        status.push({x: category, y: stocks.filter(stock => stock.category === category).length});
-      });
-    } else {
-      stocks = await database(activeShop.projectId).collection('stocks').getAll(null, {});
-      stocks.forEach(stock => categories[stock.category] = stock.category);
-      Object.keys(categories).forEach(category => {
-        status.push({x: category, y: stocks.filter(stock => stock.category === category).length});
-      });
-    }
-    return status;
-  }
+  // async getStockStatusByCategory(): Promise<{ x: string; y: number }[]> {
+  //   const activeShop = await this.storage.getActiveShop();
+  //   const categories = {};
+  //   let stocks = await this.storage.getStocks();
+  //   const status: { x: string; y: number }[] = [];
+  //   if (stocks && Array.isArray(stocks) && stocks.length > 0) {
+  //     stocks.forEach(stock => categories[stock.category] = stock.category);
+  //     Object.keys(categories).forEach(category => {
+  //       status.push({x: category, y: stocks.filter(stock => stock.category === category).length});
+  //     });
+  //   } else {
+  //     stocks = await database(activeShop.projectId).collection('stocks').getAll(null, {});
+  //     stocks.forEach(stock => categories[stock.category] = stock.category);
+  //     Object.keys(categories).forEach(category => {
+  //       status.push({x: category, y: stocks.filter(stock => stock.category === category).length});
+  //     });
+  //   }
+  //   return status;
+  // }
 }

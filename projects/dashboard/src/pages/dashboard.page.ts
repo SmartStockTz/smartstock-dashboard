@@ -29,7 +29,7 @@ import {DashboardState} from '../states/dashboard.state';
                                              [dateRange]="dateRange.asObservable()">
             </app-dashboard-sales-performance>
             <app-dashboard-expenses [initialRange]="initialRange" [dateRange]="dateRange.asObservable()"></app-dashboard-expenses>
-            <app-dashboard-stock-overview-component></app-dashboard-stock-overview-component>
+<!--            <app-dashboard-stock-overview-component></app-dashboard-stock-overview-component>-->
           </div>
         </div>
       </ng-template>

@@ -15,7 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {HttpClientModule} from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
-import {ConfigsService} from '@smartstocktz/core-libs';
+import {ConfigsService, IpfsService} from '@smartstocktz/core-libs';
 import {init} from 'bfast';
 import {MatBottomSheet, MatBottomSheetModule} from "@angular/material/bottom-sheet";
 
@@ -61,6 +61,9 @@ const routes: Routes = [
 })
 export class AppModule {
   constructor(private readonly configsService: ConfigsService) {
+    IpfsService.getVersion().then(value => {
+      console.log('ipfs service is ', value.version);
+    }).catch(console.log);
     init({
       applicationId: 'smartstock_lb',
       projectId: 'smartstock'

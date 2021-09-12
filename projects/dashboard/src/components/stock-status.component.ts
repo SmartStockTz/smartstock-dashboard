@@ -24,21 +24,21 @@ export class StockStatusComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStockStatus();
+    // this.getStockStatus();
   }
 
-  private getStockStatus(): void {
-    this.stockStatusProgress = true;
-    this.adminDashboardService.getStockStatus().then(status => {
-      this.stockStatusProgress = false;
-      this.stockStatus = status;
-      this.initiateGraph(this.stockStatus);
-    }).catch(reason => {
-      this.stockStatusProgress = false;
-      this.logger.i(reason);
-      // this.logger.i(reason, 'StockStatusComponent:26');
-    });
-  }
+  // private getStockStatus(): void {
+  //   this.stockStatusProgress = true;
+  //   this.adminDashboardService.getStockStatus().then(status => {
+  //     this.stockStatusProgress = false;
+  //     this.stockStatus = status;
+  //     this.initiateGraph(this.stockStatus);
+  //   }).catch(reason => {
+  //     this.stockStatusProgress = false;
+  //     this.logger.i(reason);
+  //     // this.logger.i(reason, 'StockStatusComponent:26');
+  //   });
+  // }
 
   private initiateGraph(data: { x: string, y: number }[]): void {
     const x: string[] = data.map(value => value.x);
