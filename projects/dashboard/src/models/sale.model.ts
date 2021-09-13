@@ -18,4 +18,8 @@ export interface SalesModel {
   stock?: StockModel;
   batch?: string; // for offline sync
   stockId: string;
+  refund?: {
+    amount: number,
+    quantity: number
+  };
 }

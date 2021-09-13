@@ -42,7 +42,7 @@ export class ExpensesComponent implements OnInit {
       .expenses(dateRange)
       .then(value => {
         this.expensesProgress = false;
-        this.expenses = value[0].total;
+        this.expenses = value.total;
       })
       .catch(_ => {
         this.expensesProgress = false;
