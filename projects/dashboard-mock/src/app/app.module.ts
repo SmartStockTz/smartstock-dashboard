@@ -17,7 +17,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ConfigsService, IpfsService} from '@smartstocktz/core-libs';
 import {init} from 'bfast';
-import {MatBottomSheet, MatBottomSheetModule} from "@angular/material/bottom-sheet";
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 
 const routes: Routes = [

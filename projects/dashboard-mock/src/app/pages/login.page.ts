@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
-import {StorageService, UserService} from '@smartstocktz/core-libs';
+import {getDaasAddress, getFaasAddress, StorageService, UserService} from '@smartstocktz/core-libs';
 import {auth, init} from 'bfast';
 
 @Component({
@@ -51,7 +51,9 @@ export class LoginPageComponent implements OnInit {
           this.router.navigateByUrl('/dashboard').catch(console.log);
           init({
             applicationId: user.applicationId,
-            projectId: user.projectId
+            projectId: user.projectId,
+            databaseURL: getDaasAddress(user),
+            functionsURL: getFaasAddress(user)
           }, user.projectId);
           // await this.userService.p(user.projectId);
           await this.userService.saveCurrentShop(user as any);
