@@ -22,14 +22,11 @@ import {DashboardState} from '../states/dashboard.state';
           [ngClass]="(deviceState.isSmallScreen | async)===true?'container-fluid':'container'">
           <div class="col-12 col-lg-10 col-xl-10 offset-xl-1 offset-lg-1 offset-md-0 offset-sm-0">
             <app-current-shop (dateSelected)="dateSelected($event)"></app-current-shop>
-            <app-dashboard-profit-loss [initialRange]="initialRange"
-                                       [dateRange]="dateRange.asObservable()">
-            </app-dashboard-profit-loss>
-            <app-dashboard-sales-performance [initialRange]="initialRange"
-                                             [dateRange]="dateRange.asObservable()">
-            </app-dashboard-sales-performance>
-            <app-dashboard-expenses [initialRange]="initialRange" [dateRange]="dateRange.asObservable()"></app-dashboard-expenses>
-<!--            <app-dashboard-stock-overview-component></app-dashboard-stock-overview-component>-->
+            <app-dashboard-profit-loss [data]="dashboardState.report | async"></app-dashboard-profit-loss>
+            <app-sales-cash [data]="dashboardState.report | async"></app-sales-cash>
+            <app-sales-invoice [data]="dashboardState.report | async"></app-sales-invoice>
+            <app-dashboard-expenses [data]="dashboardState.report | async"></app-dashboard-expenses>
+            <!--            <app-dashboard-stock-overview-component></app-dashboard-stock-overview-component>-->
           </div>
         </div>
       </ng-template>
@@ -48,10 +45,12 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initialRange = new Date();
+    this.dashboardState.summary(this.initialRange);
   }
 
-  dateSelected(dateRange: Date): void {
-    this.initialRange = dateRange;
-    this.dateRange.next(dateRange);
+  dateSelected(date: Date): void {
+    this.initialRange = date;
+    this.dashboardState.summary(this.initialRange);
   }
 }

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Observable} from 'rxjs';
+import {DashboardModel} from '../models/dashboard.model';
 
 @Component({
   selector: 'app-dashboard-profit-loss',
@@ -14,9 +14,7 @@ import {Observable} from 'rxjs';
                        [content]="totalSaleComponent"
                        description="Profit/Loss you generate of sales you made over specified period">
           <ng-template #totalSaleComponent>
-            <app-net-sales-profit [initialDataRange]="initialRange"
-                              [dateRange]="dateRange">
-            </app-net-sales-profit>
+            <app-net-sales-profit [netSaleProfit]="data.profit"></app-net-sales-profit>
           </ng-template>
         </app-dash-card>
       </div>
@@ -26,9 +24,7 @@ import {Observable} from 'rxjs';
                        reportLink="/report"
                        description="Percentage of a profit/loss per cost of sales you made over specified period">
           <ng-template #totalGrossProfit>
-            <app-net-sales-profit-margin [initialDataRange]="initialRange"
-                          [dateRange]="dateRange">
-            </app-net-sales-profit-margin>
+            <app-net-sales-profit-margin [netSaleProfitMargin]="data.margin"></app-net-sales-profit-margin>
           </ng-template>
         </app-dash-card>
       </div>
@@ -37,9 +33,8 @@ import {Observable} from 'rxjs';
   styleUrls: []
 })
 
-export class DashboardProfitLossComponent {
-  @Input() initialRange: Date;
-  @Input() dateRange: Observable<Date>;
+export class ProfitComponent {
+  @Input() data: DashboardModel;
   constructor() {
   }
 }

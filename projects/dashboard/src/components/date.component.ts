@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from '@smartstocktz/core-libs';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-current-shop',
@@ -25,22 +25,13 @@ import {FormControl, FormGroup} from '@angular/forms';
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker [touchUi]="true" #picker></mat-datepicker>
           </mat-form-field>
-          <!--          <mat-form-field appearance="fill">-->
-          <!--            <mat-label>Date</mat-label>-->
-          <!--            <mat-date-range-input [formGroup]="rangeFormGroup" [rangePicker]="picker">-->
-          <!--              <input ma formControlName="date" placeholder="Date">-->
-          <!--            </mat-date-range-input>-->
-          <!--            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-          <!--            <mat-date-range-picker #picker></mat-date-range-picker>-->
-          <!--            <mat-error>Invalid end date</mat-error>-->
-          <!--          </mat-form-field>-->
         </div>
       </mat-card-content>
     </mat-card>
   `,
   styleUrls: ['../styles/date-range.style.scss']
 })
-export class DateRangeComponent implements OnInit {
+export class DateComponent implements OnInit {
   shop: any;
   @Output() dateSelected = new EventEmitter<Date>();
   dateControl = new FormControl(new Date());

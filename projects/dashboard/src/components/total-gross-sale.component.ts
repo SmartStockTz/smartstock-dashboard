@@ -23,25 +23,6 @@ export class TotalGrossSaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.initialDataRange) {
-      this.getTotalGrossSale(this.initialDataRange);
-    }
-    this.dateRange.subscribe(value => {
-      this.totalGrossSale = undefined;
-      this.getTotalGrossSale(value);
-    });
-  }
-
-  private getTotalGrossSale(dateRange: Date): any {
-    this.totalGrossSaleProgress = true;
-    this.dashboardApi.getTotalGrossSale(dateRange)
-      .then(value => {
-        this.totalGrossSaleProgress = false;
-        this.totalGrossSale = value.gross;
-      })
-      .catch(_ => {
-        this.totalGrossSaleProgress = false;
-      });
   }
 
 }
