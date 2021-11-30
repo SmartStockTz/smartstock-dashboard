@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {getDaasAddress, UserService} from '@smartstocktz/core-libs';
 import {DashboardModel} from '../models/dashboard.model';
 import {functions} from 'bfast';
-import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class DashboardService {
     const url = getDaasAddress(shop);
     return functions().request(url + '/report/dashboard').get({
       params: {
-        date: moment(date).format('YYYY-MM-DD')
+        date: date.toISOString()
       }
     });
   }
