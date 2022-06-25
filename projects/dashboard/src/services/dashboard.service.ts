@@ -1,15 +1,13 @@
-import {Injectable} from '@angular/core';
-import {getDaasAddress, UserService} from '@smartstocktz/core-libs';
-import {DashboardModel} from '../models/dashboard.model';
-import {functions} from 'bfast';
+import { Injectable } from "@angular/core";
+import { getDaasAddress, UserService } from "smartstock-core";
+import { DashboardModel } from "../models/dashboard.model";
+import { functions } from "bfast";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DashboardService {
-
-  constructor(private readonly userService: UserService) {
-  }
+  constructor(private readonly userService: UserService) {}
 
   // private static validateDates(from, to): void {
   //   if (!from || from.toString() === '') {
@@ -23,11 +21,13 @@ export class DashboardService {
   async dashboardSummary(date: Date): Promise<DashboardModel> {
     const shop = await this.userService.getCurrentShop();
     const url = getDaasAddress(shop);
-    return functions().request(url + '/report/dashboard').get({
-      params: {
-        date: date.toISOString()
-      }
-    });
+    return functions()
+      .request(url + "/report/dashboard")
+      .get({
+        params: {
+          date: date.toISOString()
+        }
+      });
   }
 
   // async getTotalSale(date): Promise<{ sales: number }> {
