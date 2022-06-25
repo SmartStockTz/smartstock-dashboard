@@ -1,9 +1,6 @@
 {
-  "name": "@smartstocktz/dashboard",
-  "version": "0.3.2",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/smartstocktz"
-  },
+  "name": "smartstock-dashboard",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/smartstocktz/smartstock-dashboard.git"
