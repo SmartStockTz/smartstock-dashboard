@@ -1,8 +1,9 @@
 {
-  "name": "app-dashboard",
-  "version": "0.1.2",
+  "name": "smartstock-dashboard",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
+    "box":"yarn install && yarn start",
     "start": "ng serve -c dev dashboard-mock",
     "publish": "ng build -c production dashboard && cd dist/dashboard && npm publish --ignore-script",
     "test": "ng test",
@@ -20,8 +21,8 @@
     "@angular/platform-browser": "~13.0.2",
     "@angular/platform-browser-dynamic": "~13.0.2",
     "@angular/router": "~13.0.2",
-    "@smartstocktz/core-libs": "^0.4.11",
-    "bfast": "^6.0.0-alpha.17",
+    "smartstockt-core": "^1.0.1",
+    "bfast": "^6.0.1",
     "comlink": "^4.3.1",
     "highcharts": "~9.2.2",
     "rxjs": "~7.4.0",
