@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { UserService } from "smartstock-core";
-import { FormControl } from "@angular/forms";
+import { UntypedFormControl } from "@angular/forms";
 
 @Component({
   selector: "app-current-shop",
@@ -44,7 +44,7 @@ import { FormControl } from "@angular/forms";
 export class DateComponent implements OnInit {
   shop: any;
   @Output() dateSelected = new EventEmitter<Date>();
-  dateControl = new FormControl(new Date());
+  dateControl = new UntypedFormControl(new Date());
 
   constructor(private readonly userService: UserService) {}
 

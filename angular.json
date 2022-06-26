@@ -151,6 +151,5 @@
     }},
   "cli": {
     "analytics": false
-  },
-  "defaultProject": "dashboard-mock"
+  }
 }
