@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "box": "yarn install && yarn start",
-    "start": "ng serve -c dev dashboard-mock",
+    "start": "ng serve --host=0.0.0.0 --disable-host-check=true -c dev dashboard-mock",
     "publish": "ng build -c production dashboard && cd dist/dashboard && npm publish --ignore-script",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,10 +22,10 @@
     "@angular/platform-browser-dynamic": "^14.0.3",
     "@angular/router": "^14.0.3",
     "bfast": "6.0.1",
-    "comlink": "^4.3.1",
-    "highcharts": "~9.2.2",
+    "comlink": "4.3.1",
+    "highcharts": "10.1.0",
     "rxjs": "~7.4.0",
-    "smartstock-core": "1.0.1",
+    "smartstock-core": "1.0.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
